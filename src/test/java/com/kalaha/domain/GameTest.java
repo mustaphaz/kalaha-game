@@ -24,14 +24,7 @@ class GameTest {
 
     @BeforeEach
     void init() {
-        subject = Game.initGame();
-    }
-
-    @Test
-    @DisplayName("initGame should return a game with a board a southTurn set to true and default pitlist")
-    void initGame() {
-        assertThat(subject.isSouthTurn()).isTrue();
-        assertThat(subject.getBoard()).isNotNull();
+        subject = new Game(mockBoard);
     }
 
     @Test

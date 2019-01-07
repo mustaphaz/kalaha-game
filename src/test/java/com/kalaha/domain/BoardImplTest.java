@@ -16,7 +16,7 @@ class BoardImplTest {
 
     @BeforeEach
     void init() {
-        subject = new BoardImpl();
+        subject = new BoardImpl(6, 6, true);
     }
 
     @Test

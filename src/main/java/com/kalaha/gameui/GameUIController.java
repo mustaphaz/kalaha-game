@@ -1,5 +1,6 @@
 package com.kalaha.gameui;
 
+import com.kalaha.GameConfig;
 import com.kalaha.domain.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class GameUIController {
 
-    private GameUIService gameUIService;
+    private final GameUIService gameUIService;
+    private GameConfig gameConfig;
     private Game game;
 
     @Autowired
-    public GameUIController(GameUIService gameUIService) {
+    public GameUIController(GameUIService gameUIService, GameConfig gameConfig) {
         this.gameUIService = gameUIService;
+        this.gameConfig = gameConfig;
     }
 
     @GetMapping("/")
@@ -26,7 +29,7 @@ public class GameUIController {
 
     @GetMapping(value = "/play")
     public String startGame(Model model) {
-        initGame();
+        game = gameConfig.getGameBean();
         addAttributesToModel(model);
         return "board";
     }
@@ -66,9 +69,5 @@ public class GameUIController {
     private void addErrorMessageToModel(Model model, final int index) {
         model.addAttribute("errorMessage", String.format("The chosen pit %s contains no stones " +
                 "please select another pit", index + 1));
-    }
-
-    private void initGame() {
-        game = Game.initGame();
     }
 }

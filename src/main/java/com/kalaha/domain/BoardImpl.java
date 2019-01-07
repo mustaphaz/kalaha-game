@@ -4,24 +4,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class BoardImpl implements Board {
+public final class BoardImpl implements Board {
 
-    private static final int STONES_PER_PIT = 6;
-    private static final int AMOUNT_OF_PITS = 6;
-    private static final int TOTAL_AMOUNT_OF_PITS = 2 * AMOUNT_OF_PITS + 2;
     private boolean southTurn;
-    private List<Integer> pitList;
+    private final List<Integer> pitList;
 
-    BoardImpl() {
-        List<Integer> list = IntStream.
-                generate(() -> STONES_PER_PIT)
-                .limit(TOTAL_AMOUNT_OF_PITS)
+    public BoardImpl(final int pitsPerPlayer, final int stonesPerPit, final boolean southTurn) {
+        int totalAmountOfPits = 2 * pitsPerPlayer + 2;
+        this.pitList = IntStream.
+                generate(() -> stonesPerPit)
+                .limit(totalAmountOfPits)
                 .boxed()
                 .collect(Collectors.toList());
-        list.set(getIndexKalahaSouth(), 0);
-        list.set(getIndexKalahaNorth(), 0);
-        this.pitList = list;
-        this.southTurn = true;
+        setStonesInPit(getIndexKalahaSouth(), 0);
+        setStonesInPit(getIndexKalahaNorth(), 0);
+        this.southTurn = southTurn;
     }
 
     @Override
@@ -39,12 +36,12 @@ public class BoardImpl implements Board {
 
     @Override
     public int getIndexKalahaSouth() {
-        return TOTAL_AMOUNT_OF_PITS / 2 - 1;
+        return getPitList().size() / 2 - 1;
     }
 
     @Override
     public int getIndexKalahaNorth() {
-        return TOTAL_AMOUNT_OF_PITS - 1;
+        return getPitList().size() - 1;
     }
 
     @Override

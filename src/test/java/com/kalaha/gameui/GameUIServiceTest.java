@@ -1,5 +1,7 @@
 package com.kalaha.gameui;
 
+import com.kalaha.domain.Board;
+import com.kalaha.domain.BoardImpl;
 import com.kalaha.domain.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,9 +15,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameUIServiceTest {
 
     private GameUIService subject;
+    private Game game;
 
     @BeforeEach
     void init() {
+        Board board = new BoardImpl(6, 6, true);
+        game = new Game(board);
         subject = new GameUIService();
     }
 
@@ -30,8 +35,6 @@ class GameUIServiceTest {
                     .rowNorth(Arrays.asList(6, 6, 6, 6, 6, 6))
                     .kalahaNorth(0)
                     .build();
-
-            Game game = Game.initGame();
 
             BoardHtmlData result = subject.getBoardHtmlDataFrom(game);
 
@@ -48,7 +51,6 @@ class GameUIServiceTest {
                     .kalahaNorth(0)
                     .build();
 
-            Game game = Game.initGame();
             game.play(0);
             game.play(1);
 

@@ -1,21 +1,15 @@
 package com.kalaha.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class Game {
+@AllArgsConstructor
+public final class Game {
 
     private Board board;
-
-    private Game() {
-        this.board = new BoardImpl();
-    }
-
-    public static Game initGame() {
-        return new Game();
-    }
 
     public void play(final int index) {
         board.makeMove(index);
