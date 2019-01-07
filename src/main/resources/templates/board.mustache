@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Kalaha Game</title>
+    <style type="text/css">
+        div, table {
+            margin: auto;
+        }
+
+        div.gameConsole {
+            width: 700px;
+        }
+
+        div.error {
+            color: red;
+        }
+
+        div.gameover {
+            color: green;
+        }
+
+        form, p, td {
+            text-align: center;
+        }
+
+        table {
+            padding: 10px;
+        }
+
+        td {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gameConsole">
+        {{#boardHtmlData}}
+            <table border="1">
+                <tr>
+                    <td colspan="8">Player North</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">{{kalahaNorth}}</td>
+                    {{#rowNorth}}
+                        <td>{{.}}</td>
+                    {{/rowNorth}}
+                    <td rowspan="2">{{kalahaSouth}}</td>
+                </tr>
+                <tr>
+                    {{#rowSouth}}
+                        <td>{{.}}</td>
+                    {{/rowSouth}}
+                </tr>
+                <tr>
+                    <td colspan="8">Player South</td>
+                </tr>
+            </table>
+
+            {{#errorMessage}}
+                <div class="error">
+                    <p>{{errorMessage}}</p>
+                </div>
+            {{/errorMessage}}
+
+            {{#gameoverMessage}}
+                <div class="gameover">
+                    <p>{{gameoverMessage}}</p>
+                </div>
+            {{/gameoverMessage}}
+
+            {{^gameoverMessage}}
+                <p>Player Turn:
+                    {{#southTurn}}South{{/southTurn}}
+                    {{^southTurn}}North{{/southTurn}}
+                </p>
+                <p>Select a pit</p>
+                <form action="/play" method="post">
+                    <select id="index" name="index">
+                        <option value="0">1</option>
+                        <option value="1">2</option>
+                        <option value="2">3</option>
+                        <option value="3">4</option>
+                        <option value="4">5</option>
+                        <option value="5">6</option>
+                    </select>
+                    <input type="hidden" value="{{#southTurn}}true{{/southTurn}}{{^southTurn}}false{{/southTurn}}"
+                           id="isSouthTurn"
+                           name="isSouthTurn"/>
+                    <button type="submit" value="Submit">GO</button>
+                </form>
+            {{/gameoverMessage}}
+
+        {{/boardHtmlData}}
+    </div>
+</body>
+</html>
