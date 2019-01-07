@@ -1,6 +1,6 @@
 package com.kalaha.gameui;
 
-import com.kalaha.Game;
+import com.kalaha.domain.Game;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

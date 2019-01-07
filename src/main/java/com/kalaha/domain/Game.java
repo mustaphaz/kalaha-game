@@ -1,4 +1,4 @@
-package com.kalaha;
+package com.kalaha.domain;
 
 import lombok.Data;
 
