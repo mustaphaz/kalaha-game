@@ -6,11 +6,11 @@ import java.util.stream.IntStream;
 
 public class BoardImpl implements Board {
 
-    private boolean southTurn;
-    private List<Integer> pitList;
     private static final int STONES_PER_PIT = 6;
     private static final int AMOUNT_OF_PITS = 6;
     private static final int TOTAL_AMOUNT_OF_PITS = 2 * AMOUNT_OF_PITS + 2;
+    private boolean southTurn;
+    private List<Integer> pitList;
 
     BoardImpl() {
         List<Integer> list = IntStream.
@@ -48,13 +48,13 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public void setSouthTurn(final boolean isSouthTurn) {
-        southTurn = isSouthTurn;
+    public boolean isSouthTurn() {
+        return southTurn;
     }
 
     @Override
-    public boolean isSouthTurn() {
-        return southTurn;
+    public void setSouthTurn(final boolean isSouthTurn) {
+        southTurn = isSouthTurn;
     }
 
     @Override

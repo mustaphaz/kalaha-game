@@ -12,9 +12,9 @@ public interface Board {
 
     int getIndexKalahaNorth();
 
-    void setSouthTurn(boolean southTurn);
-
     boolean isSouthTurn();
+
+    void setSouthTurn(boolean southTurn);
 
     boolean isEmpty(int index);
 
