@@ -1,8 +1,8 @@
 package com.kalaha.gameui;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 class Payload {
     private Integer index;
     private Boolean isSouthTurn;
