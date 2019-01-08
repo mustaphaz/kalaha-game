@@ -1,4 +1,4 @@
-package com.kalaha;
+package com.kalaha.config;
 
 import com.kalaha.domain.Board;
 import com.kalaha.domain.BoardImpl;

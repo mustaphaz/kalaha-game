@@ -1,6 +1,5 @@
 package com.kalaha.gameui;
 
-import com.kalaha.GameConfig;
 import com.kalaha.domain.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class GameUIController {
 
     private final GameUIService gameUIService;
-    private GameConfig gameConfig;
     private Game game;
 
     @Autowired
-    public GameUIController(GameUIService gameUIService, GameConfig gameConfig) {
+    public GameUIController(GameUIService gameUIService, final Game game) {
         this.gameUIService = gameUIService;
-        this.gameConfig = gameConfig;
+        this.game = game;
     }
 
     @GetMapping("/")
@@ -28,8 +26,7 @@ public class GameUIController {
     }
 
     @GetMapping(value = "/play")
-    public String startGame(Model model) {
-        game = gameConfig.getGameBean();
+    public String getGame(Model model) {
         addAttributesToModel(model);
         return "board";
     }
