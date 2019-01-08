@@ -1,17 +1,21 @@
 buildscript {
+    ext {
+        springBootVersion = "2.1.1.RELEASE"
+        gradlePluginVersion = "1.2.0"
+    }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE'
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.2.0'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:${gradlePluginVersion}"
 
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
 
 repositories {
     mavenCentral()
@@ -19,15 +23,21 @@ repositories {
     maven { url "http://repo.spring.io/milestone" }
 }
 
+ext {
+    junitJupiterVersion = '5.1.1'
+    assertjVersion = '3.11.1'
+    mavenVersion = '2.23.4'
+}
+
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-mustache'
-    compile 'org.springframework.boot:spring-boot-devtools'
-    compile 'org.assertj:assertj-core:3.11.1'
-    compile 'org.projectlombok:lombok'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
-    testCompile 'org.mockito:mockito-core:2.23.4'
-    testCompile 'org.mockito:mockito-junit-jupiter:2.23.4'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
-    testCompile 'junit:junit:4.12'
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-mustache"
+    compile "org.springframework.boot:spring-boot-devtools"
+    compile "org.projectlombok:lombok"
+
+    testCompile "org.assertj:assertj-core:${assertjVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testCompile "org.mockito:mockito-core:${mavenVersion}"
+    testCompile "org.mockito:mockito-junit-jupiter:${mavenVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
 }
