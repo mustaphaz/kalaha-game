@@ -70,8 +70,12 @@ public final class BoardImpl implements Board {
     }
 
     private int nextPit(final int index) {
-        int nextIndex = index == getIndexKalahaNorth() ? 0 : index + 1;
+        int nextIndex = isLastIndex(index) ? 0 : index + 1;
         return skipOtherPlayersKalaha(nextIndex);
+    }
+
+    private boolean isLastIndex(final int index) {
+        return index == getIndexKalahaNorth();
     }
 
     private void incrementStonesInPit(final int index) {
