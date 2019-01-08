@@ -1,12 +1,12 @@
 package com.kalaha.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@Builder
 public final class Game {
 
     private Board board;

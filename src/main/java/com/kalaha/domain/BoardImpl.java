@@ -1,25 +1,18 @@
 package com.kalaha.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Builder
+@AllArgsConstructor
 public final class BoardImpl implements Board {
 
     private boolean southTurn;
     private final List<Integer> pitList;
-
-    public BoardImpl(final int pitsPerPlayer, final int stonesPerPit, final boolean southTurn) {
-        int totalAmountOfPits = 2 * pitsPerPlayer + 2;
-        this.pitList = IntStream.
-                generate(() -> stonesPerPit)
-                .limit(totalAmountOfPits)
-                .boxed()
-                .collect(Collectors.toList());
-        setStonesInPit(getIndexKalahaSouth(), 0);
-        setStonesInPit(getIndexKalahaNorth(), 0);
-        this.southTurn = southTurn;
-    }
 
     @Override
     public void makeMove(final int index) {
@@ -178,4 +171,21 @@ public final class BoardImpl implements Board {
         return !isSouthTurn();
     }
 
+    public static class BoardImplBuilder {
+        private List<Integer> pitList;
+
+        public BoardImplBuilder pitList(final int pitsPerPlayer, final int stonesPerPit) {
+            int totalAmountOfPits = 2 * pitsPerPlayer + 2;
+            List<Integer> list = IntStream.
+                    generate(() -> stonesPerPit)
+                    .limit(totalAmountOfPits)
+                    .boxed()
+                    .collect(Collectors.toList());
+            list.set(list.size() / 2 - 1, 0);
+            list.set(list.size() - 1, 0);
+
+            this.pitList = list;
+            return this;
+        }
+    }
 }

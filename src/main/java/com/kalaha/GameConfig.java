@@ -12,27 +12,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class GameConfig extends WebMvcConfigurationSupport {
     private final int pitsPerPlayer;
     private final int stonesPerPit;
-    private final String firstTurn;
+    private final boolean southTurn;
 
-    public GameConfig(@Value("${board.pitsPerPlayer}") final int pitsPerPlayer,
-                      @Value("${board.stonesPerPit}") final int stonesPerPit,
-                      @Value("${board.firstTurn}") final String firstTurn) {
+    public GameConfig(@Value("${board.pitsPerPlayer: 6}") final int pitsPerPlayer,
+                      @Value("${board.stonesPerPit: 6}") final int stonesPerPit,
+                      @Value("${board.southTurn: true}") final boolean southTurn) {
         this.pitsPerPlayer = pitsPerPlayer;
         this.stonesPerPit = stonesPerPit;
-        this.firstTurn = firstTurn;
+        this.southTurn = southTurn;
     }
 
     @Bean
     public Game getGameBean() {
-        return new Game(getBoardBean());
+        return Game.builder().board(getBoardBean()).build();
     }
 
     @Bean
     public Board getBoardBean() {
-        return new BoardImpl(pitsPerPlayer, stonesPerPit, getSouthTurn(firstTurn));
-    }
-
-    private boolean getSouthTurn(final String firstTurn) {
-        return !firstTurn.equalsIgnoreCase("north");
+        return BoardImpl.builder()
+                .pitList(pitsPerPlayer, stonesPerPit)
+                .southTurn(southTurn)
+                .build();
     }
 }

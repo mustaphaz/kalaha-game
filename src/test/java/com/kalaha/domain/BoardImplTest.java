@@ -16,7 +16,10 @@ class BoardImplTest {
 
     @BeforeEach
     void init() {
-        subject = new BoardImpl(6, 6, true);
+        subject = BoardImpl.builder()
+                .pitList(6, 6)
+                .southTurn(true)
+                .build();
     }
 
     @Test

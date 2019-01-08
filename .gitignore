@@ -26,6 +26,7 @@ hs_err_pid*
 /build/
 /.idea/
 .idea/
+/out
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar

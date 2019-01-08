@@ -19,8 +19,11 @@ class GameUIServiceTest {
 
     @BeforeEach
     void init() {
-        Board board = new BoardImpl(6, 6, true);
-        game = new Game(board);
+        Board board = BoardImpl.builder()
+                .pitList(6, 6)
+                .southTurn(true)
+                .build();
+        game = Game.builder().board(board).build();
         subject = new GameUIService();
     }
 
