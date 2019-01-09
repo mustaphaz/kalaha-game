@@ -24,7 +24,7 @@ public final class Game {
         return exceedingStonesSouth > 0 ? "Player South has won!" : "Player North has won!";
     }
 
-    public int getOffsetNorthPlayer() {
+    public int getOffsetPlayerNorth() {
         return board.getPitList().size() / 2;
     }
 

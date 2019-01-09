@@ -16,7 +16,7 @@ public final class BoardImpl implements Board {
 
     @Override
     public void makeMove(final int index) {
-        int lastPit = allocateAndGetLastPit(index);
+        int lastPit = allocateStonesAndGetLastPit(index);
         captureIfLastPitIsOwnEmptyPit(lastPit);
         collectLastStonesIfGameIsOver();
         switchTurnsIfLastPitIsNotOwnKalaha(lastPit);
@@ -43,8 +43,8 @@ public final class BoardImpl implements Board {
     }
 
     @Override
-    public void setSouthTurn(final boolean isSouthTurn) {
-        southTurn = isSouthTurn;
+    public void setSouthTurn(final boolean southTurn) {
+        this.southTurn = southTurn;
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class BoardImpl implements Board {
         return getTotalStonesInPitsSouth() == 0 || getTotalStonesInPitsNorth() == 0;
     }
 
-    private int allocateAndGetLastPit(final int index) {
+    private int allocateStonesAndGetLastPit(final int index) {
         int stones = getStonesInPit(index);
         int lastPit = index;
         while (stones > 0) {
@@ -71,7 +71,7 @@ public final class BoardImpl implements Board {
 
     private int nextPit(final int index) {
         int nextIndex = isLastIndex(index) ? 0 : index + 1;
-        return skipOtherPlayersKalaha(nextIndex);
+        return skipKalahaOpponent(nextIndex);
     }
 
     private boolean isLastIndex(final int index) {
@@ -166,7 +166,7 @@ public final class BoardImpl implements Board {
                 .sum();
     }
 
-    private int skipOtherPlayersKalaha(final int index) {
+    private int skipKalahaOpponent(final int index) {
         if (isSouthTurn() && index == getIndexKalahaNorth())
             return 0;
         if (isNotSouthTurn() && index == getIndexKalahaSouth())

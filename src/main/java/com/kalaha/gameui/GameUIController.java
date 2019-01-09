@@ -35,7 +35,7 @@ public final class GameUIController {
     public String performMove(@ModelAttribute final Payload payload, final Model model) {
         int chosenIndex = payload.getIndex();
         boolean isSouthTurn = payload.getIsSouthTurn();
-        int pitListIndex = isSouthTurn ? chosenIndex : chosenIndex + game.getOffsetNorthPlayer();
+        int pitListIndex = isSouthTurn ? chosenIndex : chosenIndex + game.getOffsetPlayerNorth();
 
         if (game.isPitEmpty(pitListIndex))
             addErrorMessageToModel(model, chosenIndex);
@@ -47,8 +47,8 @@ public final class GameUIController {
         return "board";
     }
 
-    private void play(final int pitListIndex, final boolean isSouthTurn) {
-        game.setSouthTurn(isSouthTurn);
+    private void play(final int pitListIndex, final boolean southTurn) {
+        game.setSouthTurn(southTurn);
         game.play(pitListIndex);
     }
 

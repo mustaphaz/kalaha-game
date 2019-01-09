@@ -37,11 +37,11 @@ sourceSets {
 }
 
 ext {
-    junitJupiterVersion = '5.1.1'
-    assertjVersion = '3.11.1'
-    mavenVersion = '2.23.4'
-    restAssuredVersion = '3.2.0'
-    commonsVersion = '2.5'
+    junitJupiterVersion = "5.1.1"
+    assertjVersion = "3.11.1"
+    mavenVersion = "2.23.4"
+    restAssuredVersion = "3.2.0"
+    commonsVersion = "2.5"
 }
 
 configurations {

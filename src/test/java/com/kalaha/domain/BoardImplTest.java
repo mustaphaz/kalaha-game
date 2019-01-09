@@ -48,7 +48,7 @@ class BoardImplTest {
         }
 
         @Test
-        @DisplayName("returns correct pitList after single move of player player north")
+        @DisplayName("returns correct pitList after single move of player north")
         void singleMoveNorth() {
             List<Integer> expectedList = Arrays.asList(7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 0, 2);
 
@@ -209,8 +209,8 @@ class BoardImplTest {
     @Nested
     class GameOver {
         @Test
-        @DisplayName("returns true if south player has no stones left")
-        void noStonesSouthPlayer() {
+        @DisplayName("returns true if player south has no stones left")
+        void noStonesPlayerSouth() {
             List<Integer> givenList = Arrays.asList(6, 6, 6, 6, 6, 5, 5, 0, 0, 0, 0, 0, 0, 47);
             addPitListToBoard(subject, givenList);
 
@@ -220,8 +220,8 @@ class BoardImplTest {
         }
 
         @Test
-        @DisplayName("returns true if north player has no stones left")
-        void noStonesNorthPlayer() {
+        @DisplayName("returns true if player north has no stones left")
+        void noStonesPlayerNorth() {
             List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 5, 5, 6, 6, 6, 6, 6, 47);
             addPitListToBoard(subject, givenList);
 
@@ -231,8 +231,8 @@ class BoardImplTest {
         }
 
         @Test
-        @DisplayName("returns false if south player has stones left")
-        void stonesLeftSouthPlayer() {
+        @DisplayName("returns false if player south has stones left")
+        void stonesLeftPlayerSouth() {
             List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
             addPitListToBoard(subject, givenList);
 
@@ -242,8 +242,8 @@ class BoardImplTest {
         }
 
         @Test
-        @DisplayName("returns false if north player has no stones left")
-        void stonesLeftNorthPlayer() {
+        @DisplayName("returns false if player north has stones left")
+        void stonesLeftPlayerNorth() {
             List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
             addPitListToBoard(subject, givenList);
 

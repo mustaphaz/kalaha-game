@@ -39,13 +39,13 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("getOffsetNorthPlayer should return correct offset")
+    @DisplayName("getOffsetPlayerNorth should return correct offset")
     void getOffsetNorthPlayer() {
         List<Integer> givenList = Arrays.asList(6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 0);
         int correctOffset = 7;
         when(mockBoard.getPitList()).thenReturn(givenList);
 
-        int result = subject.getOffsetNorthPlayer();
+        int result = subject.getOffsetPlayerNorth();
 
         assertThat(result).isEqualTo(correctOffset);
     }
@@ -145,7 +145,7 @@ class GameTest {
         }
 
         @Test
-        @DisplayName("should return correct message when playerSouth has won")
+        @DisplayName("should return correct message when player south has won")
         void shouldReturnCorrectmessageWhenPlayerSouthHasWon() {
             String expectedMessage = "Player South has won!";
             List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 25);
@@ -157,7 +157,7 @@ class GameTest {
         }
 
         @Test
-        @DisplayName("should return correct message when playerNorth has won")
+        @DisplayName("should return correct message when player north has won")
         void shouldReturnCorrectmessageWhenPlayerNorthHasWon() {
             String expectedMessage = "Player North has won!";
             List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 47);
