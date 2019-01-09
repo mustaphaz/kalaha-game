@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -87,6 +88,38 @@ class GameTest {
         int result = subject.getStonesKalahaSouth();
 
         assertThat(result).isEqualTo(expectedStones);
+    }
+
+    @Test
+    @DisplayName("isSouthTurn calls the isSouthTurn method of its board")
+    void isSouthTurn() {
+        subject.isSouthTurn();
+
+        verify(mockBoard, times(1)).isSouthTurn();
+    }
+
+    @Test
+    @DisplayName("setSouthTurn calls the setSouthTurn method of its board")
+    void setSouthTurn() {
+        subject.setSouthTurn(false);
+
+        verify(mockBoard, times(1)).setSouthTurn(eq(false));
+    }
+
+    @Test
+    @DisplayName("isGameOver calls the isGameOver method of its board")
+    void isGameOver() {
+        subject.isGameOver();
+
+        verify(mockBoard, times(1)).isGameOver();
+    }
+
+    @Test
+    @DisplayName("isPitEmpty calls the isEmpty method of its board")
+    void isPitEmpty() {
+        subject.isPitEmpty(5);
+
+        verify(mockBoard, times(1)).isEmpty(eq(5));
     }
 
     @Test
