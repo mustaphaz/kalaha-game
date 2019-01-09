@@ -140,13 +140,27 @@ class BoardImplTest {
         }
 
         @Test
-        @DisplayName("does collect last stones when game is over")
-        void gameOverCollect() {
+        @DisplayName("does collect last stones when south runs out of stones")
+        void noStonesLeftSouthCollect() {
             List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 1, 5, 5, 6, 6, 6, 6, 6, 10);
             List<Integer> expectedList = Arrays.asList(0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 45);
             addPitListToBoard(subject, givenList);
 
             subject.makeMove(5);
+
+            assertThat(subject.isGameOver()).isTrue();
+            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+        }
+
+        @Test
+        @DisplayName("does collect last stones when north runs out of stones")
+        void noStonesLeftNortCollect() {
+            List<Integer> givenList = Arrays.asList(5, 6, 6, 6, 6, 6, 10, 0, 0, 0, 0, 0, 1, 5);
+            List<Integer> expectedList = Arrays.asList(0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 6);
+            addPitListToBoard(subject, givenList);
+
+            subject.setSouthTurn(false);
+            subject.makeMove(12);
 
             assertThat(subject.isGameOver()).isTrue();
             assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);

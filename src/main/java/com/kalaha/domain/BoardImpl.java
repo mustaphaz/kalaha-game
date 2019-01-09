@@ -121,7 +121,6 @@ public final class BoardImpl implements Board {
 
         setStonesInPit(getIndexKalahaSouth(), newAmountSouth);
         setStonesInPit(getIndexKalahaNorth(), newAmountNorth);
-
     }
 
     private void emptyRegularPits() {
