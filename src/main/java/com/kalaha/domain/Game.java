@@ -55,8 +55,8 @@ public final class Game {
         board.setSouthTurn(southTurn);
     }
 
-    public boolean isPitEmpty(final int pitListIndex) {
-        return board.isEmpty(pitListIndex);
+    public boolean isPitEmpty(final int index) {
+        return board.isEmpty(index);
     }
 
     public boolean isGameOver() {

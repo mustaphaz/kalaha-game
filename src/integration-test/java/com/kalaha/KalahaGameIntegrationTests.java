@@ -2,6 +2,7 @@ package com.kalaha;
 
 import io.restassured.response.Response;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,14 +26,14 @@ public class KalahaGameIntegrationTests {
     @Test
     @DisplayName("get on root should successfully return the index page")
     void getIndexPage() throws IOException {
-        String indexPage = IOUtils.toString(KalahaGameIntegrationTests.class.getResourceAsStream("/indexPage.html"), "UTF-8");
+        String indexPage = getFileContent("/indexPage.html");
 
         Response response =
                 when()
                         .get(baseUrl + "/")
                 .then()
                         .assertThat()
-                        .statusCode(200)
+                        .statusCode(HttpStatus.SC_OK)
                 .and()
                         .extract()
                         .response();
@@ -43,14 +44,14 @@ public class KalahaGameIntegrationTests {
     @Test
     @DisplayName("get on /play should successfully return new board")
     void getPlay() throws IOException {
-        String newBoard = IOUtils.toString(KalahaGameIntegrationTests.class.getResourceAsStream("/newBoard.html"), "UTF-8");
+        String newBoard = getFileContent("/newBoard.html");
 
         Response response =
                 when()
                         .get(baseUrl + "/play")
                 .then()
                         .assertThat()
-                        .statusCode(200)
+                        .statusCode(HttpStatus.SC_OK)
                 .and()
                         .extract()
                         .response();
@@ -61,7 +62,7 @@ public class KalahaGameIntegrationTests {
     @Test
     @DisplayName("post on /play should successfully return a correctly updated board")
     void postPlay() throws IOException {
-        String updatedBoard = IOUtils.toString(KalahaGameIntegrationTests.class.getResourceAsStream("/updatedBoard.html"), "UTF-8");
+        String updatedBoard = getFileContent("/updatedBoard.html");
 
         Response response =
                 given()
@@ -71,11 +72,15 @@ public class KalahaGameIntegrationTests {
                         .post(baseUrl + "/play")
                 .then()
                         .assertThat()
-                        .statusCode(200)
+                        .statusCode(HttpStatus.SC_OK)
                 .and()
                         .extract()
                         .response();
 
         assertThat(response.getBody().print()).isEqualToIgnoringWhitespace(updatedBoard);
+    }
+
+    private String getFileContent(final String file) throws IOException {
+        return IOUtils.toString(KalahaGameIntegrationTests.class.getResourceAsStream(file), "UTF-8");
     }
 }

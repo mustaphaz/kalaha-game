@@ -30,7 +30,6 @@ class GameTest {
     @Test
     @DisplayName("play should call board makeMove")
     void play() {
-        subject.setBoard(mockBoard);
         int index = 0;
 
         subject.play(index);
@@ -41,9 +40,9 @@ class GameTest {
     @Test
     @DisplayName("getOffsetNorthPlayer should return correct offset")
     void getOffsetNorthPlayer() {
-        List<Integer> pitList = Arrays.asList(6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 0);
+        List<Integer> givenList = Arrays.asList(6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 0);
         int correctOffset = 7;
-        addPitListToMockBoard(pitList);
+        when(mockBoard.getPitList()).thenReturn(givenList);
 
         int result = subject.getOffsetNorthPlayer();
 
@@ -53,36 +52,36 @@ class GameTest {
     @Test
     @DisplayName("getPitListSouth should return correct pitList")
     void getPitListSouth() {
-        List<Integer> pitList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
-        List<Integer> pitListSouth = Arrays.asList(0, 0, 8, 8, 8, 8);
-        addPitListToMockBoard(pitList);
+        List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
+        List<Integer> expectedList = Arrays.asList(0, 0, 8, 8, 8, 8);
+        when(mockBoard.getPitList()).thenReturn(givenList);
         when(mockBoard.getIndexKalahaSouth()).thenReturn(6);
 
         List<Integer> result = subject.getPitListSouth();
 
-        assertThat(result).containsExactlyElementsOf(pitListSouth);
+        assertThat(result).containsExactlyElementsOf(expectedList);
     }
 
     @Test
     @DisplayName("getPitListNorth should return correct pitList")
     void getPitListNorth() {
-        List<Integer> pitList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
-        List<Integer> pitListNorth = Arrays.asList(7, 7, 6, 6, 6, 6);
-        addPitListToMockBoard(pitList);
+        List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
+        List<Integer> expectedList = Arrays.asList(7, 7, 6, 6, 6, 6);
+        when(mockBoard.getPitList()).thenReturn(givenList);
         when(mockBoard.getIndexKalahaSouth()).thenReturn(6);
         when(mockBoard.getIndexKalahaNorth()).thenReturn(13);
 
         List<Integer> result = subject.getPitListNorth();
 
-        assertThat(result).containsExactlyElementsOf(pitListNorth);
+        assertThat(result).containsExactlyElementsOf(expectedList);
     }
 
     @Test
     @DisplayName("getStonesKalahaSouth should return correct amount of stones")
     void getStonesKalahaSouth() {
         int expectedStones = 2;
-        List<Integer> pitList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
-        addPitListToMockBoard(pitList);
+        List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 0);
+        when(mockBoard.getPitList()).thenReturn(givenList);
         when(mockBoard.getIndexKalahaSouth()).thenReturn(6);
 
         int result = subject.getStonesKalahaSouth();
@@ -94,18 +93,13 @@ class GameTest {
     @DisplayName("getStonesKalahaNorth should return correct amount of stones")
     void getStonesKalahaNorth() {
         int expectedStones = 3;
-        List<Integer> pitList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 3);
-        addPitListToMockBoard(pitList);
+        List<Integer> givenList = Arrays.asList(0, 0, 8, 8, 8, 8, 2, 7, 7, 6, 6, 6, 6, 3);
+        when(mockBoard.getPitList()).thenReturn(givenList);
         when(mockBoard.getIndexKalahaNorth()).thenReturn(13);
 
         int result = subject.getStonesKalahaNorth();
 
         assertThat(result).isEqualTo(expectedStones);
-    }
-
-    private void addPitListToMockBoard(List<Integer> pitList) {
-        subject.setBoard(mockBoard);
-        when(mockBoard.getPitList()).thenReturn(pitList);
     }
 
     @Nested
@@ -121,8 +115,8 @@ class GameTest {
         @DisplayName("should return correct message when playerSouth has won")
         void shouldReturnCorrectmessageWhenPlayerSouthHasWon() {
             String expectedMessage = "Player South has won!";
-            List<Integer> pitList = Arrays.asList(0, 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 25);
-            addPitListToMockBoard(pitList);
+            List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 25);
+            when(mockBoard.getPitList()).thenReturn(givenList);
 
             String result = subject.getWinnerMessage();
 
@@ -133,8 +127,8 @@ class GameTest {
         @DisplayName("should return correct message when playerNorth has won")
         void shouldReturnCorrectmessageWhenPlayerNorthHasWon() {
             String expectedMessage = "Player North has won!";
-            List<Integer> pitList = Arrays.asList(0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 47);
-            addPitListToMockBoard(pitList);
+            List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 47);
+            when(mockBoard.getPitList()).thenReturn(givenList);
 
             String result = subject.getWinnerMessage();
 
@@ -145,8 +139,8 @@ class GameTest {
         @DisplayName("should return correct message when neither player has won")
         void shouldReturnCorrectmessageWhenNeitherPlayerHasWon() {
             String expectedMessage = "It's a tie!";
-            List<Integer> pitList = Arrays.asList(0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 36);
-            addPitListToMockBoard(pitList);
+            List<Integer> givenList = Arrays.asList(0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 36);
+            when(mockBoard.getPitList()).thenReturn(givenList);
 
             String result = subject.getWinnerMessage();
 

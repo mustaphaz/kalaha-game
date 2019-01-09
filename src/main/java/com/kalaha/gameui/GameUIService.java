@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class GameUIService {
+public final class GameUIService {
 
     BoardHtmlData getBoardHtmlDataFrom(final Game game) {
         return BoardHtmlData.builder()

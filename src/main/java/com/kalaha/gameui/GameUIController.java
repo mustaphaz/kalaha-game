@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class GameUIController {
+public final class GameUIController {
 
     private final GameUIService gameUIService;
-    private Game game;
+    private final Game game;
 
     @Autowired
-    public GameUIController(GameUIService gameUIService, final Game game) {
+    public GameUIController(final GameUIService gameUIService, final Game game) {
         this.gameUIService = gameUIService;
         this.game = game;
     }
@@ -26,13 +26,13 @@ public class GameUIController {
     }
 
     @GetMapping(value = "/play")
-    public String getGame(Model model) {
+    public String getGame(final Model model) {
         addAttributesToModel(model);
         return "board";
     }
 
     @PostMapping(value = "/play")
-    public String performMove(@ModelAttribute Payload payload, Model model) {
+    public String performMove(@ModelAttribute final Payload payload, final Model model) {
         int chosenIndex = payload.getIndex();
         boolean isSouthTurn = payload.getIsSouthTurn();
         int pitListIndex = isSouthTurn ? chosenIndex : chosenIndex + game.getOffsetNorthPlayer();
@@ -42,7 +42,7 @@ public class GameUIController {
         else
             play(pitListIndex, isSouthTurn);
 
-        checkIfGameIsOver(model);
+        addGameOverMessageIfGameIsOver(model);
         addAttributesToModel(model);
         return "board";
     }
@@ -52,19 +52,19 @@ public class GameUIController {
         game.play(pitListIndex);
     }
 
-    private void checkIfGameIsOver(Model model) {
+    private void addErrorMessageToModel(final Model model, final int index) {
+        model.addAttribute("errorMessage", String.format("The chosen pit %s contains no stones "
+                + "please select another pit", index + 1));
+    }
+
+    private void addGameOverMessageIfGameIsOver(final Model model) {
         if (game.isGameOver())
             model.addAttribute("gameoverMessage", game.getWinnerMessage());
     }
 
-    private void addAttributesToModel(Model model) {
+    private void addAttributesToModel(final Model model) {
         BoardHtmlData boardHtmlData = gameUIService.getBoardHtmlDataFrom(game);
         model.addAttribute("boardHtmlData", boardHtmlData);
         model.addAttribute("southTurn", game.isSouthTurn());
-    }
-
-    private void addErrorMessageToModel(Model model, final int index) {
-        model.addAttribute("errorMessage", String.format("The chosen pit %s contains no stones " +
-                "please select another pit", index + 1));
     }
 }

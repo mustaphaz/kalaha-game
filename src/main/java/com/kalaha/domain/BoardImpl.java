@@ -65,7 +65,7 @@ public final class BoardImpl implements Board {
             incrementStonesInPit(lastPit);
             --stones;
         }
-        setStonesInPit(index, 0);
+        emptyPit(index);
         return lastPit;
     }
 
@@ -92,8 +92,8 @@ public final class BoardImpl implements Board {
             int capturedStones = getStonesInPit(index) + getStonesInPit(oppositePit(index));
 
             setStonesInPit(kalaha, getStonesInPit(kalaha) + capturedStones);
-            setStonesInPit(index, 0);
-            setStonesInPit(oppositePit(index), 0);
+            emptyPit(index);
+            emptyPit(oppositePit(index));
         }
     }
 
@@ -126,10 +126,10 @@ public final class BoardImpl implements Board {
 
     private void emptyRegularPits() {
         IntStream.range(0, getIndexKalahaSouth())
-                .forEach(index -> setStonesInPit(index, 0));
+                .forEach(this::emptyPit);
 
         IntStream.range(getIndexKalahaSouth() + 1, getIndexKalahaNorth())
-                .forEach(index -> setStonesInPit(index, 0));
+                .forEach(this::emptyPit);
     }
 
     private void switchTurnsIfLastPitIsNotOwnKalaha(final int lastPit) {
@@ -147,8 +147,12 @@ public final class BoardImpl implements Board {
         return getPitList().get(index);
     }
 
-    private void setStonesInPit(final int index, int value) {
+    private void setStonesInPit(final int index, final int value) {
         getPitList().set(index, value);
+    }
+
+    private void emptyPit(final int index) {
+        getPitList().set(index, 0);
     }
 
     private int getTotalStonesInPitsSouth() {
@@ -175,7 +179,7 @@ public final class BoardImpl implements Board {
         return !isSouthTurn();
     }
 
-    public static class BoardImplBuilder {
+    public static final class BoardImplBuilder {
         private List<Integer> pitList;
 
         public BoardImplBuilder pitList(final int pitsPerPlayer, final int stonesPerPit) {
