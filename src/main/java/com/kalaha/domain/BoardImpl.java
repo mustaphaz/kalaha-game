@@ -83,11 +83,7 @@ public final class BoardImpl implements Board {
     }
 
     private void captureIfLastPitIsOwnEmptyPit(final int index) {
-        boolean pitContainsOneStone = getStonesInPit(index) == 1;
-        boolean landsInPlayersOwnPit = isSouthTurn() && index < getIndexKalahaSouth()
-                || isNotSouthTurn() && index > getIndexKalahaSouth();
-
-        if (pitContainsOneStone && isARegularPit(index) && landsInPlayersOwnPit) {
+        if (pitContainsOneStone(index) && isARegularPit(index) && landsInPlayersOwnPit(index)) {
             int kalaha = isSouthTurn() ? getIndexKalahaSouth() : getIndexKalahaNorth();
             int capturedStones = getStonesInPit(index) + getStonesInPit(oppositePit(index));
 
@@ -97,8 +93,17 @@ public final class BoardImpl implements Board {
         }
     }
 
+    private boolean pitContainsOneStone(int index) {
+        return getStonesInPit(index) == 1;
+    }
+
     private boolean isARegularPit(final int index) {
         return index != getIndexKalahaSouth() && index != getIndexKalahaNorth();
+    }
+
+    private boolean landsInPlayersOwnPit(int index) {
+        return isSouthTurn() && index < getIndexKalahaSouth()
+                || isNotSouthTurn() && index > getIndexKalahaSouth();
     }
 
     private int oppositePit(final int index) {

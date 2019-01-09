@@ -25,13 +25,13 @@ public final class GameUIController {
         return "index";
     }
 
-    @GetMapping(value = "/play")
+    @GetMapping("/play")
     public String getGame(final Model model) {
         addAttributesToModel(model);
         return "board";
     }
 
-    @PostMapping(value = "/play")
+    @PostMapping("/play")
     public String performMove(@ModelAttribute final Payload payload, final Model model) {
         int chosenIndex = payload.getIndex();
         boolean isSouthTurn = payload.getIsSouthTurn();
