@@ -74,7 +74,8 @@ class GameTest {
         List<Integer> expectedPitList = Arrays.asList(6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 0);
         List<Integer> pitListSouth = game.getPitListSouth();
 
-        pitListSouth.clear();
+        pitListSouth.add(56);
+        pitListSouth.add(66);
 
         List<Integer> actualPitListAfterChange = game.getBoard().getPitList();
         assertThat(actualPitListAfterChange).isEqualTo(expectedPitList);

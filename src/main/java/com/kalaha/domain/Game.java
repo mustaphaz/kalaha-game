@@ -3,6 +3,7 @@ package com.kalaha.domain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,12 +30,14 @@ public final class Game {
     }
 
     public List<Integer> getPitListSouth() {
-        return board.getPitList().subList(0, board.getIndexKalahaSouth());
+        List<Integer> subList = board.getPitList().subList(0, board.getIndexKalahaSouth());
+        return new ArrayList<>(subList);
     }
 
     public List<Integer> getPitListNorth() {
-        return board.getPitList()
+        List<Integer> subList = board.getPitList()
                 .subList(board.getIndexKalahaSouth() + 1, board.getIndexKalahaNorth());
+        return new ArrayList<>(subList);
     }
 
     public int getStonesKalahaSouth() {
