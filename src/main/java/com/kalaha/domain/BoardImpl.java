@@ -93,7 +93,7 @@ public final class BoardImpl implements Board {
         }
     }
 
-    private boolean pitContainsOneStone(int index) {
+    private boolean pitContainsOneStone(final int index) {
         return getStonesInPit(index) == 1;
     }
 
@@ -101,7 +101,7 @@ public final class BoardImpl implements Board {
         return index != getIndexKalahaSouth() && index != getIndexKalahaNorth();
     }
 
-    private boolean landsInPlayersOwnPit(int index) {
+    private boolean landsInPlayersOwnPit(final int index) {
         return isSouthTurn() && index < getIndexKalahaSouth()
                 || isNotSouthTurn() && index > getIndexKalahaSouth();
     }
