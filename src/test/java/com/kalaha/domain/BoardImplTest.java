@@ -29,7 +29,7 @@ class BoardImplTest {
 
         List<Integer> result = subject.getPitList();
 
-        assertThat(result).containsExactlyElementsOf(expectedList);
+        assertThat(result).isEqualTo(expectedList);
         assertThat(subject.isSouthTurn()).isTrue();
     }
 
@@ -44,7 +44,7 @@ class BoardImplTest {
 
             subject.makeMove(1);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -56,7 +56,7 @@ class BoardImplTest {
             subject.makeMove(7);
             subject.makeMove(12);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -69,7 +69,7 @@ class BoardImplTest {
             subject.makeMove(7);
             subject.makeMove(8);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -81,7 +81,7 @@ class BoardImplTest {
 
             subject.makeMove(5);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -94,7 +94,7 @@ class BoardImplTest {
 
             subject.makeMove(12);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -109,7 +109,7 @@ class BoardImplTest {
             subject.makeMove(5);
 
             assertThat(subject.isSouthTurn()).isTrue();
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -124,7 +124,7 @@ class BoardImplTest {
             subject.makeMove(5);
 
             assertThat(subject.isSouthTurn()).isFalse();
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -136,7 +136,7 @@ class BoardImplTest {
 
             subject.makeMove(4);
 
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -149,7 +149,7 @@ class BoardImplTest {
             subject.makeMove(5);
 
             assertThat(subject.isGameOver()).isTrue();
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
 
         @Test
@@ -163,7 +163,7 @@ class BoardImplTest {
             subject.makeMove(12);
 
             assertThat(subject.isGameOver()).isTrue();
-            assertThat(subject.getPitList()).containsExactlyElementsOf(expectedList);
+            assertThat(subject.getPitList()).isEqualTo(expectedList);
         }
     }
 
