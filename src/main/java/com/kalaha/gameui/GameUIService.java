@@ -13,12 +13,12 @@ public final class GameUIService {
         return BoardHtmlData.builder()
                 .rowSouth(game.getPitListSouth())
                 .kalahaSouth(game.getStonesKalahaSouth())
-                .rowNorth(getListInReverse(game.getPitListNorth()))
+                .rowNorth(reverse(game.getPitListNorth()))
                 .kalahaNorth(game.getStonesKalahaNorth())
                 .build();
     }
 
-    private List<Integer> getListInReverse(final List<Integer> list) {
+    private List<Integer> reverse(final List<Integer> list) {
         Collections.reverse(list);
         return list;
     }
